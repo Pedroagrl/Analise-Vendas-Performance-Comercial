@@ -1,67 +1,78 @@
-# KPIs e Medidas DAX
+# Decisões Analíticas do Projeto
 
-Este documento descreve as principais medidas criadas utilizando DAX para permitir análises de desempenho de vendas.
+Este projeto foi desenvolvido com o objetivo de praticar modelagem de dados, criação de medidas em DAX e construção de dashboards analíticos no Power BI, utilizando um conjunto de dados de vendas contendo informações sobre produtos, promoções, lojas e períodos de tempo.
 
-As medidas foram desenvolvidas considerando boas práticas de modelagem e reutilização de cálculos.
-
-
-## KPI — Vendas Brutas
-
-Soma do valor total das vendas antes da aplicação de descontos.
-
-Utilizado como base para todos os cálculos de desempenho.
+Durante o desenvolvimento foram aplicadas boas práticas de modelagem, organização visual e definição de indicadores, com foco em simular um cenário real de análise comercial.
 
 
-## KPI — Vendas Líquidas
+## Separação dos Dashboards
 
-Valor total das vendas após a aplicação de descontos.
+O dashboard foi dividido em duas páginas principais:
 
-Permite avaliar o faturamento real.
+1. Visão Geral de Vendas  
+2. Análise de Produtos e Promoções  
 
+A primeira página apresenta indicadores executivos e visão geral do desempenho, enquanto a segunda página permite análise mais detalhada por produto, categoria e promoção.
 
-
-## KPI — Percentual de Desconto
-
-Percentual médio de desconto aplicado sobre as vendas.
-
-Usado para analisar impacto de promoções.
+Essa separação foi adotada para reduzir sobrecarga visual e facilitar a navegação entre análises gerais e análises detalhadas.
 
 
+## Modelagem em Esquema Estrela
 
-## KPI — Margem (%)
+O modelo foi reorganizado seguindo o padrão de esquema estrela, utilizando a tabela fato de vendas como centro do modelo e conectando as tabelas dimensão ao redor.
 
-Percentual de margem obtida nas vendas.
+Foram utilizadas as seguintes dimensões:
 
-Utilizado para avaliar rentabilidade por produto e por promoção.
+- Calendário  
+- Produtos  
+- Categorias  
+- Promoções  
+- Lojas  
+- Localidades  
 
+A direção de filtro foi definida das dimensões para a tabela fato (D → F), garantindo que os cálculos fossem realizados corretamente.
 
-
-## KPI — Vendas LY
-
-Valor das vendas no mesmo período do ano anterior.
-
-Calculado utilizando funções de inteligência de tempo com a tabela calendário.
-
-Permite comparação entre períodos.
-
-
-
-## KPI — Crescimento vs LY
-
-Variação percentual entre vendas atuais e vendas do ano anterior.
-
-Usado para medir crescimento.
+Relacionamentos ambíguos foram removidos para evitar resultados incorretos em medidas e segmentações.
 
 
-## KPI — Ranking de Produtos
+## Criação de Colunas Auxiliares para Relacionamentos
 
-Ordenação dos produtos pelo valor total vendido.
+Em alguns casos não existia uma chave direta para relacionamento entre tabelas.
 
-Utilizado para identificar produtos com melhor desempenho.
+Para resolver isso, foram criadas colunas utilizando DAX para permitir a ligação correta entre dimensões e tabela fato, mantendo o modelo consistente.
+
+Essa abordagem foi utilizada para manter o padrão estrela e evitar relacionamentos muitos-para-muitos.
 
 
-## KPI — Impacto das Promoções
+## Definição dos Indicadores
 
-Comparação de vendas e margem por tipo de promoção.
+Os indicadores foram definidos com foco em análise de performance comercial, incluindo:
 
-Permite avaliar o efeito das campanhas no resultado final.
+- Vendas totais  
+- Vendas líquidas  
+- Margem  
+- Percentual de desconto  
+- Crescimento em relação ao ano anterior  
+- Ranking de produtos  
+- Impacto das promoções  
+
+O objetivo foi permitir avaliar tendência, desempenho e resultado das campanhas.
+
+
+## Uso de Drilldown e Navegação Hierárquica
+
+Nos gráficos de categoria e produto foi utilizado drilldown, permitindo navegar da categoria para o produto.
+
+Esse recurso foi aplicado para manter o dashboard limpo, evitando excesso de informações na visualização principal.
+
+
+## Organização Visual
+
+Foi utilizado layout personalizado com background externo para melhorar a organização visual.
+
+Os gráficos foram distribuídos para responder perguntas como:
+
+- Como as vendas evoluíram ao longo do tempo  
+- Quais categorias vendem mais  
+- Qual o impacto das promoções  
+- Quais produtos possuem melhor desempenho  

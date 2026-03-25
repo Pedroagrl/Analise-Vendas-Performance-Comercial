@@ -1,79 +1,68 @@
-# Regras de Negócio e Transformações de Dados
+# KPIs e Medidas DAX
 
-Este documento descreve as principais regras aplicadas na preparação dos dados e construção do modelo no Power BI.
+Este documento descreve as principais medidas criadas utilizando DAX para permitir análises de desempenho de vendas.
 
-O objetivo foi garantir consistência nos cálculos e permitir análises corretas.
-
-## Organização do Modelo em Esquema Estrela
-
-O modelo foi estruturado seguindo o padrão star schema.
-
-Foi definido que:
-- fVendas seria a tabela fato
-- As tabelas dimensão filtrariam a fato
-- A direção de filtro seria D → F
-
-Isso evita ambiguidade e melhora performance.
+As medidas foram desenvolvidas considerando boas práticas de modelagem e reutilização de cálculos.
 
 
+## KPI — Vendas Brutas
 
-## Remoção de Relacionamentos Ambíguos
+Soma do valor total das vendas antes da aplicação de descontos.
 
-O modelo original possuía múltiplos caminhos de relacionamento.
+Utilizado como base para todos os cálculos de desempenho.
 
-Esses relacionamentos foram removidos para evitar erros em medidas e segmentações.
 
-Sempre que possível foi mantido apenas um caminho entre dimensão e fato.
+## KPI — Vendas Líquidas
+
+Valor total das vendas após a aplicação de descontos.
+
+Permite avaliar o faturamento real.
 
 
 
-## Criação de Colunas DAX para Relacionamento
+## KPI — Percentual de Desconto
 
-Quando não existia chave direta entre tabelas, foram criadas colunas calculadas para permitir o relacionamento correto.
+Percentual médio de desconto aplicado sobre as vendas.
 
-Essa abordagem foi utilizada para manter o modelo consistente sem utilizar muitos-para-muitos.
-
-
-
-## Uso da Tabela Calendário
-
-Foi utilizada uma tabela calendário para permitir:
-
-- análise por ano e mês
-- cálculo de LY
-- cálculo de crescimento
-
-Todas as medidas temporais utilizam essa tabela.
+Usado para analisar impacto de promoções.
 
 
-## Implementação de RLS
 
-Foi implementado Row Level Security utilizando a tabela UsuarioRLS.
+## KPI — Margem (%)
 
-Cada usuário possui um país associado.
+Percentual de margem obtida nas vendas.
 
-Foi criada uma role que filtra os dados de acordo com o país do usuário.
-
-Isso permite restringir a visualização dos dados por região.
+Utilizado para avaliar rentabilidade por produto e por promoção.
 
 
-## Uso de Drilldown
 
-Foi utilizado drilldown em gráficos de categoria e produto.
+## KPI — Vendas LY
 
-Isso permite:
+Valor das vendas no mesmo período do ano anterior.
 
-- manter o visual limpo
-- detalhar apenas quando necessário
-- melhorar a navegação
+Calculado utilizando funções de inteligência de tempo com a tabela calendário.
+
+Permite comparação entre períodos.
 
 
-## Objetivo das Transformações
 
-As transformações realizadas tiveram como objetivo:
+## KPI — Crescimento vs LY
 
-- garantir consistência
-- melhorar performance
-- evitar erros de cálculo
-- permitir análises corretas
-- seguir boas práticas de modelagem
+Variação percentual entre vendas atuais e vendas do ano anterior.
+
+Usado para medir crescimento.
+
+
+
+## KPI — Ranking de Produtos
+
+Ordenação dos produtos pelo valor total vendido.
+
+Utilizado para identificar produtos com melhor desempenho.
+
+
+## KPI — Impacto das Promoções
+
+Comparação de vendas e margem por tipo de promoção.
+
+Permite avaliar o efeito das campanhas no resultado final.

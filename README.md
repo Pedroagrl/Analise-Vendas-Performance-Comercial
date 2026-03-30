@@ -157,13 +157,6 @@ Principais análises:
 
 ## - Visualização dos Dashboards
 
-### Visão Geral de Vendas
-
-<img src="powerbi/assets/img1.png" width="700">
-
-### Análise Detalhada
-
-<img src="powerbi/assets/img2.png" width="700">
 
 
 ---
